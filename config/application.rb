@@ -29,6 +29,13 @@ module TypoBlog
 
     # Filter sensitive parameters from the log file
     config.filter_parameters << :password
+    
+    #For Spork
+    if Rails.env.test? 
+      initializer :after => :initialize_dependency_mechanism do 
+      ActiveSupport::Dependencies.mechanism = :load 
+    end 
+end
   end
 
   if RUBY_VERSION < "1.9"
